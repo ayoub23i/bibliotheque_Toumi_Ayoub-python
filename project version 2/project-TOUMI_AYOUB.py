@@ -38,13 +38,13 @@ def ajouter_livre(bibliotheque):
     try:    #ajouter try to avoid the error in the code if the user added a wrong entry
         annee = int(input("Annee de publication : "))
     except ValueError:
-        print("⚠️ Veuillez entrer une année valide.")
+        print("⚠️ Veuillez entrer une annee valide.")
         return
     nouveau_livre = {
         "ID": generer_id(bibliotheque),
         "Titre": titre,
         "Auteur": auteur,
-        "Année": annee,
+        "Annee": annee,
         "Lu": False,
         "Note": None,
         "Commentaire": ""
@@ -63,9 +63,9 @@ def supprimer_livre(bibliotheque):
             confirmation = input(f"Êtes-vous sûr de vouloir supprimer '{livre['Titre']}' ? (o/n) : ")
             if confirmation.lower() == 'o':    # update the lettre to maniscule et comparer avec o ,si oui suprimer
                 bibliotheque.remove(livre)
-                print("🗑 Livre supprimé.")
+                print("🗑 Livre supprime.")
             return
-    print("❌ Livre non trouvé.")
+    print("❌ Livre non trouve.")
 
 def rechercher_livre(bibliotheque):
     mot_cle = input("Mot-cle a rechercher (titre ou auteur) : ").lower()
@@ -76,7 +76,7 @@ def rechercher_livre(bibliotheque):
     if resultats:
         afficher_livres(resultats)
     else:
-        print("🔍 Aucun résultat trouvé.")
+        print("🔍 Aucun resultat trouve.")
 
 def marquer_comme_lu(bibliotheque):
     try:
@@ -99,9 +99,9 @@ def marquer_comme_lu(bibliotheque):
             commentaire = input("Commentaire (facultatif) : ")
             livre["Note"] = note
             livre["Commentaire"] = commentaire
-            print("📖 Livre marqué comme lu.")
+            print("📖 Livre marque comme lu.")
             return
-    print("❌ Livre non trouvé.")
+    print("❌ Livre non trouve.")
 
 def filtrer_lus(bibliotheque, lu=True):
     livres_filtres = [livre for livre in bibliotheque if livre["Lu"] == lu]    #filtrer la liste en fonction de la valuer j'ai appliquer le syntax dans la documantation https://docs.python.org/fr/3/tutorial/datastructures.html#list-comprehensions
@@ -111,10 +111,10 @@ def filtrer_lus(bibliotheque, lu=True):
         print("📚 Aucun livre correspondant.")
 
 def trier_livres(bibliotheque):
-    print("Trier par : 1. Année  2. Auteur  3. Note")
+    print("Trier par : 1. Annee  2. Auteur  3. Note")
     choix = input("Votre choix : ")
     if choix == '1':
-        livres_tries = sorted(bibliotheque, key=lambda x: x["Année"])
+        livres_tries = sorted(bibliotheque, key=lambda x: x["Annee"])
     elif choix == '2':
         livres_tries = sorted(bibliotheque, key=lambda x: x["Auteur"].lower())
     elif choix == '3':
@@ -159,7 +159,7 @@ def menu():
             trier_livres(bibliotheque)
         elif choix == '9':
             sauvegarder_bib(bibliotheque)
-            print("💾 Bibliotheque sauvegardée. À bientôt !")
+            print("💾 Bibliotheque sauvegardee. À bientôt !")
             break
         else:
             print("❌ Option invalide.")
