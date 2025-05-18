@@ -1,7 +1,7 @@
 import json
 import os
 
-FICHIER = "bibliotheque_TOUMI.json"
+FICHIER = "bibliothéque_TOUMI.json"
 
 
 
@@ -12,65 +12,65 @@ def charger_bib():
             return json.load(f)
     return []
 
-def sauvegarder_bib(bibliotheque):
+def sauvegarder_bib(bibliothéque):
     with open(FICHIER, "w", encoding="utf-8") as f:                #W pour Write et R for read ,on ouvre le ficher json pour ecrire 
-        json.dump(bibliotheque, f, indent=4, ensure_ascii=False)
+        json.dump(bibliothéque, f, indent=4, ensure_ascii=False)
 # j'ai utiliser ici la façon la plus commune pour eviter la redandance de l'indetifcateur ,on ajout +1 chaque fois en ajouter un livree
-def generer_id(bibliotheque):
-    if not bibliotheque:
+def generer_id(bibliothéque):
+    if not bibliothéque:
         return 1
-    return max(livre["ID"] for livre in bibliotheque) + 1
+    return max(livre["ID"] for livre in bibliothéque) + 1
 
 
-def afficher_livres(bibliotheque):
-    if not bibliotheque:
+def afficher_livres(bibliothéque):
+    if not bibliothéque:
         print("📚 Aucune entree dans la bibliotheque.")
         return
-    for livre in bibliotheque:
+    for livre in bibliothéque:
         statut = "✅ Lu" if livre["Lu"] else "❌ Non lu"
         print(f"[{livre['ID']}] {livre['Titre']} - {livre['Auteur']} ({livre['Annee']}) | {statut}")
         if livre["Lu"]:
             print(f"   Note : {livre.get('Note', 'Aucune')} | Commentaire : {livre.get('Commentaire', '')}")
 
-def ajouter_livre(bibliotheque):
+def ajouter_livre(bibliothéque):
     titre = input("Titre du livre : ")
     auteur = input("Auteur : ")
     try:    #ajouter try to avoid the error in the code if the user added a wrong entry
-        annee = int(input("Annee de publication : "))
+        année = int(input("Annee de publication : "))
     except ValueError:
         print("⚠️ Veuillez entrer une annee valide.")
         return
     nouveau_livre = {
-        "ID": generer_id(bibliotheque),
+        "ID": generer_id(bibliothéque),
         "Titre": titre,
         "Auteur": auteur,
-        "Annee": annee,
+        "Annee": année,
         "Lu": False,
         "Note": None,
         "Commentaire": ""
     }
-    bibliotheque.append(nouveau_livre)
+    bibliothéque.append(nouveau_livre)
     print("✅ Livre ajoute avec succes.")
 
-def supprimer_livre(bibliotheque):
+def supprimer_livre(bibliothéque):
     try:
         id_suppr = int(input("ID du livre à supprimer : "))
     except ValueError:
         print("⚠️ ID invalide.")
         return
-    for livre in bibliotheque:
+    for livre in bibliothéque:
         if livre["ID"] == id_suppr:
             confirmation = input(f"Êtes-vous sûr de vouloir supprimer '{livre['Titre']}' ? (o/n) : ")
             if confirmation.lower() == 'o':    # update the lettre to maniscule et comparer avec o ,si oui suprimer
-                bibliotheque.remove(livre)
+                bibliothéque.remove(livre)
                 print("🗑 Livre supprime.")
             return
     print("❌ Livre non trouve.")
 
-def rechercher_livre(bibliotheque):
+def rechercher_livre(bibliothéque):
     mot_cle = input("Mot-cle a rechercher (titre ou auteur) : ").lower()
     resultats = [
-        livre for livre in bibliotheque
+        livre for livre in bibliothéque
         if mot_cle in livre["Titre"].lower() or mot_cle in livre["Auteur"].lower()    #in c'est a dire que si un mot se trouve dans la phrase afiche le (pas tout la phrase)
     ]
     if resultats:
@@ -78,13 +78,13 @@ def rechercher_livre(bibliotheque):
     else:
         print("🔍 Aucun resultat trouve.")
 
-def marquer_comme_lu(bibliotheque):
+def marquer_comme_lu(bibliothéque):
     try:
         id_livre = int(input("ID du livre lu : "))
     except ValueError:
         print("⚠️ ID invalide.")
         return
-    for livre in bibliotheque:
+    for livre in bibliothéque:
         if livre["ID"] == id_livre:
             livre["Lu"] = True
             try:                        
@@ -103,22 +103,22 @@ def marquer_comme_lu(bibliotheque):
             return
     print("❌ Livre non trouve.")
 
-def filtrer_lus(bibliotheque, lu=True):
-    livres_filtres = [livre for livre in bibliotheque if livre["Lu"] == lu]    #filtrer la liste en fonction de la valuer j'ai appliquer le syntax dans la documantation https://docs.python.org/fr/3/tutorial/datastructures.html#list-comprehensions
+def filtrer_lus(bibliothéque, lu=True):
+    livres_filtres = [livre for livre in bibliothéque if livre["Lu"] == lu]    #filtrer la liste en fonction de la valuer j'ai appliquer le syntax dans la documantation https://docs.python.org/fr/3/tutorial/datastructures.html#list-comprehensions
     if livres_filtres:
         afficher_livres(livres_filtres)
     else:
         print("📚 Aucun livre correspondant.")
 
-def trier_livres(bibliotheque):
+def trier_livres(bibliothéque):
     print("Trier par : 1. Annee  2. Auteur  3. Note")
     choix = input("Votre choix : ")
     if choix == '1':
-        livres_tries = sorted(bibliotheque, key=lambda x: x["Annee"])
+        livres_tries = sorted(bibliothéque, key=lambda x: x["Annee"])
     elif choix == '2':
-        livres_tries = sorted(bibliotheque, key=lambda x: x["Auteur"].lower())
+        livres_tries = sorted(bibliothéque, key=lambda x: x["Auteur"].lower())
     elif choix == '3':
-        livres_tries = sorted(bibliotheque, key=lambda x: (x["Note"] is None, x["Note"]))
+        livres_tries = sorted(bibliothéque, key=lambda x: (x["Note"] is None, x["Note"]))
     else:
         print("❌ Choix invalide.")
         return
@@ -127,7 +127,7 @@ def trier_livres(bibliotheque):
 
 
 def menu():
-    bibliotheque = charger_bib()
+    bibliothéque = charger_bib()
     while True:
         print("\n=== 📚 MENU BIBLIOTHEQUE ===")
         print("1. Afficher tous les livres")
@@ -142,23 +142,23 @@ def menu():
         choix = input("Choisissez une option : ")
 
         if choix == '1':
-            afficher_livres(bibliotheque)
+            afficher_livres(bibliothéque)
         elif choix == '2':
-            ajouter_livre(bibliotheque)
+            ajouter_livre(bibliothéque)
         elif choix == '3':
-            supprimer_livre(bibliotheque)
+            supprimer_livre(bibliothéque)
         elif choix == '4':
-            rechercher_livre(bibliotheque)
+            rechercher_livre(bibliothéque)
         elif choix == '5':
-            marquer_comme_lu(bibliotheque)
+            marquer_comme_lu(bibliothéque)
         elif choix == '6':
-            filtrer_lus(bibliotheque, lu=True)
+            filtrer_lus(bibliothéque, lu=True)
         elif choix == '7':
-            filtrer_lus(bibliotheque, lu=False)
+            filtrer_lus(bibliothéque, lu=False)
         elif choix == '8':
-            trier_livres(bibliotheque)
+            trier_livres(bibliothéque)
         elif choix == '9':
-            sauvegarder_bib(bibliotheque)
+            sauvegarder_bib(bibliothéque)
             print("💾 Bibliotheque sauvegardee. À bientôt !")
             break
         else:
