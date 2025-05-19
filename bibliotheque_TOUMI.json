@@ -1,0 +1,29 @@
+[
+    {
+        "ID": 1,
+        "Titre": "the art of datascinece",
+        "Auteur": "Toumi Ayoub",
+        "Annee": 2022,
+        "Lu": true,
+        "Note": 9,
+        "Commentaire": "the book is an art "
+    },
+    {
+        "ID": 2,
+        "Titre": "the basics of python for begginers",
+        "Auteur": "Toumi Ayoub",
+        "Annee": 2025,
+        "Lu": false,
+        "Note": null,
+        "Commentaire": ""
+    },
+    {
+        "ID": 3,
+        "Titre": "Atomic habits ",
+        "Auteur": "james name ",
+        "Annee": 2018,
+        "Lu": false,
+        "Note": null,
+        "Commentaire": ""
+    }
+]
